@@ -54,8 +54,10 @@ output_dir:
 - 会话源：`opencode export <sessionID>`，或查 ~/.local/share/opencode/opencode.db（part 表含完整消息）。
 - 保底目录：~/.config/opencode/sessions/
 
-### workbuddy（待补 / TODO）
-- 已知会话源（参考）：~/.workbuddy/projects/**/<sessionID>.jsonl
+### workbuddy（已适配 / adapted）
+- 会话源：`~/.workbuddy/projects/<工作区>/<sessionID>.jsonl`，每行一个 JSON 事件；用 Glob 在 `~/.workbuddy/projects/**/<sessionID>.jsonl` 定位。
+- `message` 事件含 `role`(user/assistant) 与 `content`（逐字正文）；`ai-title` 事件给出会话标题。
+- 保底目录：~/.workbuddy/sessions/（WorkBuddy 部署时请将本文件 frontmatter 的 output_dir.fallback 改为此值）。
 
 ### hermes（待补 / TODO）
 
