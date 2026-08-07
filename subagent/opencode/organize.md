@@ -34,6 +34,8 @@ permission:
 - 默认当前会话；跨会话按传入 sessionID。
 - 方式一：`opencode export <sessionID>`。
 - 方式二：查 ~/.local/share/opencode/opencode.db（part 表含完整消息）。
+- 若两种方式均无法定位该会话（export 报错 / DB 无此 session_id / 查询为空）：
+  立即终止并报告，不产出任何文件，不臆测会话内容。
 
 ## 第四步：执行整理（RULES 第 3 章流水线）
 - 3.1 分话题：多话题 → 拆分多文件，一话题一文件。
