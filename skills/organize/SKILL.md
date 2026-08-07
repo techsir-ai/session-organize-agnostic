@@ -53,11 +53,15 @@ output_dir:
 ### opencode（已适配 / adapted）
 - 会话源：`opencode export <sessionID>`，或查 ~/.local/share/opencode/opencode.db（part 表含完整消息）。
 - 保底目录：~/.config/opencode/sessions/
+- 若两种方式均无法定位该会话（export 报错 / DB 无此 session_id / 查询为空）：
+  立即终止并报告，不产出任何文件，不臆测会话内容。
 
 ### workbuddy（已适配 / adapted）
 - 会话源：`~/.workbuddy/projects/<工作区>/<sessionID>.jsonl`，每行一个 JSON 事件；用 Glob 在 `~/.workbuddy/projects/**/<sessionID>.jsonl` 定位。
 - `message` 事件含 `role`(user/assistant) 与 `content`（逐字正文）；`ai-title` 事件给出会话标题。
 - 保底目录：~/.workbuddy/sessions/（WorkBuddy 部署时请将本文件 frontmatter 的 output_dir.fallback 改为此值）。
+- 若 Glob 无匹配（找不到该 sessionID 的 jsonl 文件）、文件无法读取或无可提炼的 message 事件：
+  立即终止并报告，不产出任何文件，不臆测会话内容。
 
 ### hermes（待补 / TODO）
 
