@@ -55,12 +55,20 @@
 
 ### 3.1 subagent 安装 / subagent Install
 
-- 待补 / TODO：会话源与部署路径待实测。
-- 已知会话源（参考）：`~/.workbuddy/projects/**/<sessionID>.jsonl`
+- Template / 模板：`subagent/workbuddy/organize.md`
+- Deploy to / 部署到：`~/.workbuddy/agents/organize.md`（WorkBuddy 系统级子 agent 目录，与 `distill.md` 同目录）
+- Session source / 会话源：`~/.workbuddy/projects/**/<sessionID>.jsonl`（Glob 定位；`message` 事件含 `role`/`content` 逐字正文，`ai-title` 事件含标题）——已写死在模板第三步
+- Fallback dir / 保底目录：`~/.workbuddy/sessions/`
+- Permission note / 权限说明：WorkBuddy 子 agent 用 `tools` 白名单控权（frontmatter `tools: [Read, Glob, Grep, Bash, Write]`），**无 opencode 式 `external_directory` 块** → 通用步骤第 4 步（同步 external_directory）**跳过**；仅需在 frontmatter 填 `output_dir.target`。
+- Usage / 使用：部署后**新开一个会话**即可调用 `organize` 子 agent（WorkBuddy 动态识别 `~/.workbuddy/agents/*.md`，无需硬重启 App）。
 
 ### 3.2 skill 安装 / skill Install
 
-- 待补 / TODO：会话源与部署路径待实测。
+- Template / 模板：`skills/organize/SKILL.md`（通用 skill，workbuddy 适配段已补全）
+- Deploy to / 部署到：`~/.workbuddy/skills/organize/SKILL.md`（WorkBuddy 用户级 skill 目录）
+- Session source / 会话源：同 3.1（见 SKILL.md 正文 workbuddy 适配段）
+- Fallback dir / 保底目录：`~/.workbuddy/sessions/`
+- Note / 说明：WorkBuddy 下 organize 以「子 agent」为主承载（3.1）；skill 为可选承载，用于手动 `@` 触发或作上下文参考。若部署，注意 WorkBuddy 的 SKILL.md frontmatter 与 opencode 不同，无需 external_directory。
 
 ---
 
