@@ -1,0 +1,203 @@
+# Session Organize Rules / 会话整理规则
+
+> Version: 260807001 / 版本: 260807001
+> Updated: 2026-08-07 / 更新: 2026-08-07
+> Changelog: Initial version / 变更: 初始版本
+
+---
+
+## 1. Goals and Principles / 目标与原则
+
+1.1 Lossless organizing, not summarization, condensation, or distillation.
+无损整理，不是摘要、浓缩或蒸馏。
+
+1.2 The goal is archiving and cross-agent reuse, not saving context or compressing conversations.
+目标是存档与跨 agent 复用，不是节省上下文或压缩会话。
+
+1.3 No information is deleted; it is only reorganized, deduplicated, or relocated.
+信息不删除，只做重组、去重与迁移归类。
+
+1.4 Repeated information is merged; non-reproducible trivial errors are dropped; reproducible errors are moved to the Pitfalls section.
+重复信息合并；不易复现的简单错误剔除；易复现错误移入避坑章节。
+
+1.5 Content irrelevant to the final steps, conclusions, or state is dropped.
+与最终步骤、结论、状态无关的闲聊内容剔除。
+
+---
+
+## 2. Two Modes / 两种模式
+
+2.1 Knowledge Mode: for learning and discussing a topic; tracks the evolution of concepts and conclusions.
+知识模式：用于学习、讨论某个问题；记录概念与结论的逐渐演化。
+
+2.2 Record Mode: for attempts, configurations, questions, and discussions with operations; tracks strict order of steps, commands, and file changes.
+记录模式：用于有尝试、配置方法、提问与讨论的会话；记录步骤、命令、文件改动的严格顺序。
+
+| Dimension / 维度 | Knowledge / 知识模式 | Record / 记录模式 |
+|---|---|---|
+| Scenario / 适用场景 | Learning, discussion / 学习、讨论 | Attempts, setup, dev, Q&A with ops / 尝试、配置、开发、操作 |
+| Order essence / 顺序本质 | Evolution of concepts & conclusions / 概念与结论的演化 | Strict sequence of steps, commands, file changes / 步骤、命令、文件改动的严格时序 |
+| Order strictness / 顺序严格度 | Medium, reconstructable / 中，可重构 | High, must be reproducible / 高，必须可复现 |
+| Non-removable / 不可剔除 | Concepts, conclusions, causal chain / 概念、结论、演化因果 | Steps, commands, file changes, decision discussions, each one / 步骤、命令、文件改动、决策讨论，一条都不能少 |
+| Removable / 可剔除 | Operational details, command logs / 操作细节、命令日志 | Irrelevant chatter / 与步骤无关的闲聊 |
+| Errors / 错误处理 | Misconceptions to Pitfalls / 误区入避坑 | Failed operations to Pitfalls, marked with step position / 失败操作入避坑，标注步骤位 |
+
+---
+
+## 3. General Pipeline / 通用处理流水线
+
+3.1 Split topics: if a session contains multiple topics, knowledge points, or operations, split them into separate files, one topic per file.
+分话题：一个会话若有多个知识点、话题或操作，拆分为多个独立文件，一话题一文件。
+
+3.2 Check first: before creating, query existing files.
+先查：创建前先查询已有文件。
+
+3.2.1 List files in the target directory, read their frontmatter (agent, session_id, topic, summary).
+列出目标目录文件，读取 frontmatter（agent、session_id、话题、摘要）。
+
+3.2.2 Same agent + same session_id + same topic -> produce a new version file (with optional new title + sequence number); the old file is kept for manual cleanup. The latest version is the authoritative one.
+相同 agent + 相同 session_id + 相同话题 -> 生成新版本文件（可改标题+序号）；旧文件保留待人工清理；最新版本为权威。
+
+3.2.3 No match -> create a new file.
+无匹配 -> 新建文件。
+
+3.2.4 Cross-session / cross-agent merging belongs to the aggregation layer, not this pipeline.
+跨会话、跨 agent 的归并属于聚合层，不在此流程内。
+
+3.3 Deduplicate: merge repeated content whose information value is already one.
+去重：合并信息量本就为 1 的重复内容。
+
+3.4 Remove invalid content, two levels:
+去无效，两层含义：
+- Drop simple, non-reproducible errors such as typos.
+  剔除简单、不易重复出现的错误，如拼写错误。
+- Move tried-but-ineffective, reproducible failures to the Pitfalls section.
+  尝试过但无效、对最终结果无效、且容易复现的错误移入避坑章节。
+
+3.5 Drop chatter irrelevant to the final steps, conclusions, or state.
+剔除与最终步骤、结论、状态无关的闲聊。
+
+3.6 Sort content according to the order semantics of the mode.
+按当前模式的顺序语义排序。
+
+3.7 Write a summary in the frontmatter: a single paragraph, no length limit; it is the basis for distinction and future aggregation.
+在 frontmatter 写摘要：单个段落，不限长度；作为区分与未来聚合的依据。
+
+3.8 Write the file with naming `{YYMMDD}-{topic}.md` and full frontmatter.
+按命名 `{YYMMDD}-{topic}.md` 及完整 frontmatter 落盘。
+
+3.9 If the session already produced artifacts, reference them instead of copying the full content.
+如果会话中已有产出物，以引用代替全文抄写。
+
+Applies to all outputs / 适用于所有产出形态：
+- Knowledge documents: reference existing docs or conclusions instead of re-writing.
+  知识文档：已有文档/结论 -> 引用，不重写。
+- Record documents: plan, spec, design docs, config files -> reference.
+  记录文档：plan、spec、设计文档、配置文件 -> 引用。
+- Code: session-produced code files -> reference by path, do not paste full source.
+  代码：会话中产生的代码文件 -> 引用文件路径，不粘贴完整源码。
+
+---
+
+## 4. Knowledge Mode / 知识模式规范
+
+4.1 Target: distill a topic's conceptual evolution and conclusions into one readable asset.
+目标：把话题的概念演化与结论整理为一份可读资产。
+
+4.2 Order follows the gradual evolution of concepts and conclusions, from initial understanding to final conclusions.
+顺序遵循概念与结论的逐渐演化，从初始认知到最终结论。
+
+4.3 Template fields:
+模板字段：
+- Topic and conclusion / 主题与结论
+- Evolution chain of understanding / 认知演化链
+- Key conclusions / 关键结论
+- Pitfalls and misconceptions / 避坑与误区
+- Related entries / 相关条目
+
+4.4 Misconceptions and reproducible errors go to the Pitfalls section, not the main chain.
+误区与易复现错误放入避坑章节，不占演化主链。
+
+---
+
+## 5. Record Mode / 记录模式规范
+
+5.1 Target: make the operation reproducible; order is strictly sequential.
+目标：保证操作可复现；顺序严格按时间推进。
+
+5.2 Steps, commands, and file changes must NOT be removed, and their order must be stricter than in Knowledge Mode.
+步骤、命令、文件改动不可剔除，顺序要求比知识模式更严格。
+
+5.3 Each step records its result or verification.
+每一步记录其结果或验证方式。
+
+5.4 Template fields:
+模板字段：
+- Environment and prerequisites / 环境与前提
+- Step sequence, in strict order: commands, configs, file changes, each with result / 步骤序列，严格时序：命令、配置、文件改动，每步含结果
+- Reproduction check / 复现检查
+- Pitfalls and error-prone points, marked with the step position / 避坑与易错点，标注步骤位
+
+5.5 In development scenarios (plan/build/fix switching), the mode remains record; mark the phase in each step.
+开发场景（plan/build/fix 切换）仍归记录模式；每一步标注所处阶段。
+
+5.6 Decision discussions that affect subsequent steps are kept; only chatter irrelevant to the final steps, conclusions, or state is dropped.
+影响后续步骤的决策讨论必须保留；只有与最终步骤、结论、状态无关的闲聊才剔除。
+
+5.7 Artifact referencing follows rule 3.9.
+产出物引用遵循 3.9。
+
+5.8 Failed operations move to Pitfalls with the step position where they occurred; the main sequence keeps only the working path.
+失败操作移入避坑并标注发生步骤；主序列只保留有效路径。
+
+---
+
+## 6. Pitfalls and Error-Prone Points / 避坑与易错章节
+
+6.1 Shared by both modes; collects reproducible errors that are invalid to the final result.
+两种模式共用；收集对最终结果无效但容易复现的错误。
+
+6.2 Each entry records: the error, its cause, the fix, and (in Record Mode) the step position.
+每条记录：错误、原因、解决办法，以及（记录模式下）发生的步骤位。
+
+---
+
+## 7. Naming and Frontmatter / 命名与元数据
+
+7.1 File name: `{YYMMDD}-{topic}.md`; the timestamp is the first-run date and never changes.
+文件名：`{YYMMDD}-{topic}.md`；时间戳为首次整理日期，永不改变。
+
+7.1.1 A topic in one session always has one authoritative file (the latest version). Old versions are kept, not deleted, for manual cleanup.
+一个会话中的一个话题永远只留一个权威文件（最新版本）；旧版本保留不删除，待人工清理。
+
+7.1.2 Same session organized again (2nd, 3rd time) -> append a sequence number at the end of the file name. Renaming the title is independent of the sequence number; both can happen at once.
+同一会话再次整理（第 2、3 次）-> 在文件名末尾追加序号；改标题与加序号互不相关，可同时发生。
+```
+260807-xxx.md        (1st run / 第一次)
+260807-xxx.2.md      (2nd run / 第二次, same or new title / 同名或新标题)
+260807-xxx.3.md      (3rd run / 第三次)
+```
+
+7.2 Frontmatter:
+frontmatter 字段：
+```
+---
+agent: <agent name>          # Which agent / 哪个 agent
+model: <model name>          # Which model / 哪个模型
+session_id: <session id>     # Corresponding session / 对应会话 id
+mode: knowledge | record     # Mode / 模式
+host_os: macOS | linux | windows   # Current machine OS / 当前机器系统
+hostname: <hostname>         # Current machine hostname / 当前机器主机名
+ip: <LAN IP>                 # LAN IP to distinguish machines; not localhost, not VPN tunnel IP / 局域网 IP，用于区分机器；非 local、非 VPN 隧道 IP
+source: <path or URL>        # Source file of this session, physical path or cloud URL; agent-specific / 源文件路径或云端 URL，因 agent 而异
+summary: <one paragraph>     # Summary, basis for aggregation / 摘要，聚合依据
+prev: <previous version file name>   # Previous version of this file; empty for the first run / 上一版本文件名；首次整理为空
+created: YYMMDD              # Created date / 创建日期
+---
+```
+
+7.3 The agent, model, session id, and host info are recorded only in the frontmatter, not in the file name.
+agent、模型、会话 id 与机器信息只写入 frontmatter，不进文件名。
+
+7.4 The version chain is expressed via `prev` in the frontmatter; `summary` carries the semantic evolution.
+版本链通过 frontmatter 的 `prev` 表达；摘要承担语义演变。
