@@ -22,6 +22,24 @@ Lossless organizing: no distillation, no extraction, no compression.
 - Inherited and reused across different agents / 可在不同 agent 中继承使用
 - One rule source (RULES.md), dual carriers: subagent + skill / 单一规则源，子 agent 与 skill 双承载
 
+## Cross-Agent Continuation / 跨 agent 无痕续做
+
+A project started in one agent can be seamlessly continued in another.
+在一个 agent 中开始的项目，可在另一个 agent 中无痕继续。
+
+How it works / 机制：
+- Organize the session into a Record asset with full process, order, and decisions.
+  会话整理为记录版资产：完整过程、严格顺序、关键决策全部保留。
+- The frontmatter carries session_id, source, agent, summary, and prev, so the next agent knows which session, how far it went, and what to do next.
+  frontmatter 携带 session_id、source、agent、summary、prev，下一个 agent 由此得知是哪个会话、进行到哪一步、下一步做什么。
+- Artifacts (plans, specs, code) are referenced, not duplicated, so work continues in place.
+  产出物（plan、spec、代码）只引用不重复，直接在原位置续接。
+- Pitfalls carry past failures, so the next agent avoids repeating them.
+  避坑章节记录失败路径，下一个 agent 直接绕开。
+
+Example: develop halfway in opencode, organize, then continue seamlessly in workbuddy.
+示例：在 opencode 中开发到一半，整理落盘，再到 workbuddy 中无痕续做。
+
 ## Quick Start / 快速开始
 → [INSTALL.md](INSTALL.md)（模块化安装：各框架 subagent / skill）
 
