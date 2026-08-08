@@ -93,8 +93,13 @@
 
 ### 5.1 subagent 安装 / subagent Install
 
-- 待补 / TODO
+- 不提供 / Not provided
+- 原因 / Reason：OpenClaw 与 Hermes 类似，无静态 `agents/*.md` 子 agent 定义机制，子代理为运行时动态创建、无法独立配置权限。故 openclaw 仅支持 skill 承载（见 5.2），不提供子 agent 模板。
 
 ### 5.2 skill 安装 / skill Install
 
-- 待补 / TODO
+- Template / 模板：`skills/organize/SKILL.md`（通用 skill，openclaw 适配段已补全）
+- Deploy to / 部署到：`~/.openclaw/agents/<agentId>/sessions/` 同级 skill 目录（按 OpenClaw 的 skill 目录约定放置）
+- Session source / 会话源：`~/.openclaw/agents/<agentId>/sessions/<sessionId>.jsonl`，其中 `<agentId>` 为当前运行的 agent 名称（如主会话通常是 main）——详见 SKILL.md 正文 openclaw 适配段
+- Fallback dir / 保底目录：`~/.openclaw/agents/<agentId>/sessions/`（OpenClaw 部署时请将本文件 frontmatter 的 output_dir.fallback 改为此值）
+- Note / 说明：OpenClaw 会话为物理 JSONL 文件，压缩只改上下文不删物理存储，被压缩轮次在 JSONL 中仅追加摘要条目或插入一行，原始行完整保留；整理时全量读取。

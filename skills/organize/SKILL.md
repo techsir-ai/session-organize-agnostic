@@ -70,7 +70,12 @@ output_dir:
 - 若 export 报错 / DB 无此 session_id / 查询为空：
   立即终止并报告，不产出任何文件，不臆测会话内容。
 
-### openclaw（待补 / TODO）
+### openclaw（已适配 / adapted）
+- 会话源：`~/.openclaw/agents/<agentId>/sessions/<sessionId>.jsonl`，其中 `<agentId>` 为当前运行的 agent 名称（可从环境或配置获取，如主会话通常是 main），`<sessionId>` 为要整理的会话唯一标识。
+- 每行一个独立的 JSON 对象，含 role、content、toolCalls、toolResult、createdAt 等字段（具体以实际结构为准）；压缩仅影响送 LLM 的上下文，不改写物理存储——被压缩轮次在 JSONL 中仅追加摘要条目或插入一行，原始行完整保留。
+- 保底目录：~/.openclaw/agents/<agentId>/sessions/（OpenClaw 部署时请将本文件 frontmatter 的 output_dir.fallback 改为此值）。
+- 若文件不存在、无法读取或无法解析出有效的 role/content 成对内容：
+  立即终止并报告，不产出任何文件，不臆测会话内容。
 
 ---
 
