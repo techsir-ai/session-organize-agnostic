@@ -63,7 +63,12 @@ output_dir:
 - 若 Glob 无匹配（找不到该 sessionID 的 jsonl 文件）、文件无法读取或无可提炼的 message 事件：
   立即终止并报告，不产出任何文件，不臆测会话内容。
 
-### hermes（待补 / TODO）
+### hermes（已适配 / adapted）
+- 会话源：`hermes sessions export --session-id <sessionID> --format jsonl`（每行一个完整会话 JSON，messages 数组含 role/content/tool_calls/active/compacted 等字段），或 sqlite3 只读查询 `~/.hermes/state.db`（sessions 表 1 行 + messages 表 N 行；用 `file:...?mode=ro` 避免锁库）。
+- 会话压缩说明：Hermes 压缩只影响送 LLM 的上下文，不删物理存储——被压缩轮次在 state.db 中标记 `active=0, compacted=1` 软归档，仍可搜索、可恢复；整理时全量读取（含 active=0 消息），不按 active 过滤。
+- 保底目录：~/.hermes/sessions/（Hermes 部署时请将本文件 frontmatter 的 output_dir.fallback 改为此值）。
+- 若 export 报错 / DB 无此 session_id / 查询为空：
+  立即终止并报告，不产出任何文件，不臆测会话内容。
 
 ### openclaw（待补 / TODO）
 

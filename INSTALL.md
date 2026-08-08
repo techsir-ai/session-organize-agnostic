@@ -76,11 +76,16 @@
 
 ### 4.1 subagent 安装 / subagent Install
 
-- 待补 / TODO
+- 不提供 / Not provided
+- 原因 / Reason：Hermes 无静态 `agents/*.md` 子 agent 定义机制（无 `~/.hermes/agents/` 目录），其子代理 `delegate_task` 为运行时动态创建、继承父 agent 工具集，无法独立配置权限；固定指令若经上下文注入（AGENTS.md 等）常驻，token 成本高。故 hermes 仅支持 skill 承载（见 4.2），不提供子 agent 模板。
 
 ### 4.2 skill 安装 / skill Install
 
-- 待补 / TODO
+- Template / 模板：`skills/organize/SKILL.md`（通用 skill，hermes 适配段已补全）
+- Deploy to / 部署到：`~/.hermes/skills/organize/SKILL.md`（Hermes 用户级 skill 目录）
+- Session source / 会话源：`hermes sessions export --session-id <sessionID> --format jsonl`，或 sqlite3 只读查询 `~/.hermes/state.db`（sessions 表 + messages 表）——详见 SKILL.md 正文 hermes 适配段
+- Fallback dir / 保底目录：`~/.hermes/sessions/`
+- Note / 说明：Hermes 压缩（context compression）只改上下文不删物理存储，被压缩轮次标记 `active=0, compacted=1` 软归档，整理时全量读取。
 
 ---
 

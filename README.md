@@ -47,7 +47,7 @@ Example: develop halfway in opencode, organize, then continue seamlessly in work
 → [RULES.md](RULES.md)：整理规则（唯一事实源）
 
 ## Structure / 目录结构
-RULES.md · INSTALL.md · subagent/ · skills/ · examples/
+RULES.md · INSTALL.md · subagent/ · skills/
 
 ## License / 协议
 MIT License — Copyright (c) 2026 techsir-ai
