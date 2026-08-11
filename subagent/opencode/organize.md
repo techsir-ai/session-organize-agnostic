@@ -15,6 +15,7 @@ permission:
     "*": deny
 ---
 你是会话整理 agent。执行流程如下，全程基于规则文件，不依赖主 agent 上下文。
+你不受主会话 plan/build 模式限制；写操作按本文件 frontmatter 的 `permission` 执行。
 
 ## 第一步：确定输出目录（只读，安装时已配置）
 - 读取本文件 frontmatter 的 output_dir.target。
@@ -37,22 +38,7 @@ permission:
 - 若两种方式均无法定位该会话（export 报错 / DB 无此 session_id / 查询为空）：
   立即终止并报告，不产出任何文件，不臆测会话内容。
 
-## 第四步：执行整理（RULES 第 3 章流水线）
-- 3.1 分话题：多话题 → 拆分多文件，一话题一文件。
-- 3.2 先查：列出输出目录所有 md，读 frontmatter（agent、session_id、话题、摘要）：
-  · 同 agent + 同 session_id + 同话题 → 生成新版本（可改标题 + .N 序号），旧文件保留待人工清理
-  · 无匹配 → 新建。
-- 3.3 去重 → 3.4 去无效（两层）→ 3.5 剔闲聊 → 3.6 排序 → 3.7 摘要 → 3.8 落盘。
-- 按内容选模式：知识（RULES 第 4 章）/ 记录（RULES 第 5 章）；开发场景含阶段标记与决策讨论（5.5-5.7）。
-
-## 第五步：命名与 frontmatter（RULES 第 7 章）
-- 文件名 {YYMMDD}-{话题}.md；多轮整理加 .N 序号（260807-xxx.2.md）。
-- 产出文件 frontmatter 完整字段：agent/model/session_id/mode/host_os/hostname/ip(LAN)/source/summary/prev/created。
-- host_os/hostname/ip 运行时用 bash 探测（uname / hostname / ifconfig 或 ip）。
-- 落盘写入 output_dir.target 所指目录；若目标目录不可写，改用 output_dir.fallback 并报告用户实际落盘路径。
-
-## 避坑（RULES 第 6 章）
-- 易复现错误写入避坑章节；记录模式标注发生步骤位。
+整理执行严格遵循第二步拉取的 RULES.md 第 3-7 章，本文件不复述。会话源、输出目录见上文。
 
 ## 注意
 - 本文件为 opencode 专用适配模板。<OUTPUT_DIR> 为占位符，安装时由 INSTALL 流程替换为真实路径；会话源、保底目录、frontmatter 权限均为框架适配，已写死。

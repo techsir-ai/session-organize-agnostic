@@ -26,22 +26,7 @@ output_dir:
 - 定位下方「适配段落」中你当前所在框架对应段，按其会话源读取。
 - 定位不到对应框架 → 终止并报告，不自行推断会话存储。
 
-## 第四步：执行整理（RULES 第 3 章流水线）
-- 3.1 分话题：多话题 → 拆分多文件，一话题一文件。
-- 3.2 先查：列出输出目录所有 md，读 frontmatter（agent、session_id、话题、摘要）：
-  · 同 agent + 同 session_id + 同话题 → 生成新版本（可改标题 + .N 序号），旧文件保留待人工清理
-  · 无匹配 → 新建。
-- 3.3 去重 → 3.4 去无效（两层）→ 3.5 剔闲聊 → 3.6 排序 → 3.7 摘要 → 3.8 落盘。
-- 按内容选模式：知识（RULES 第 4 章）/ 记录（RULES 第 5 章）；开发场景含阶段标记与决策讨论（5.5-5.7）。
-
-## 第五步：命名与 frontmatter（RULES 第 7 章）
-- 文件名 {YYMMDD}-{话题}.md；多轮整理加 .N 序号。
-- 产出文件 frontmatter 完整字段：agent/model/session_id/mode/host_os/hostname/ip(LAN)/source/summary/prev/created。
-- host_os/hostname/ip 运行时探测（uname / hostname / ifconfig 或 ip）。
-- 落盘写入 output_dir.target 所指目录；若目标目录不可写，改用 output_dir.fallback 并报告用户实际落盘路径。
-
-## 避坑（RULES 第 6 章）
-- 易复现错误写入避坑章节；记录模式标注发生步骤位。
+整理执行严格遵循第二步拉取的 RULES.md 第 3-7 章，本文件不复述。会话源、输出目录见下文适配段落。
 
 ---
 
