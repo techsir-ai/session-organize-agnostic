@@ -10,17 +10,17 @@
 
 1.1 Value-preserving organizing, not summarization, condensation, or distillation.
 价值无损整理，不是摘要、浓缩或蒸馏。
-Value-preserving means: extract value from the session and keep it lossless; discussion process irrelevant to that value is dropped.
-价值无损指：从会话中提取价值，围绕价值做无损整理；与价值无关的讨论过程剔除。
+Value-preserving means: extract value from the session and keep it lossless.
+价值无损指：从会话中提取价值，围绕价值做无损整理。
 
 1.2 The goal is archiving and cross-agent reuse, not saving context or compressing conversations.
 目标是存档与跨 agent 复用，不是节省上下文或压缩会话。
 
-1.3 No information is deleted; it is only reorganized, deduplicated, or relocated.
-信息不删除，只做重组、去重与迁移归类。
+1.3 No valuable information is deleted; it is only reorganized, deduplicated, or relocated.
+有价值的信息不删除，只做重组、去重与迁移归类。
 
-1.4 Repeated information is merged; non-reproducible trivial errors are dropped; reproducible errors are moved to the Pitfalls section.
-重复信息合并；不易复现的简单错误剔除；易复现错误移入避坑章节。
+1.4 Repeated information is merged; error handling follows 3.4.
+重复信息合并；错误处理遵循 3.4。
 
 1.5 Content irrelevant to the extracted value is dropped.
 与所提取价值无关的讨论过程剔除。
@@ -41,7 +41,7 @@ Value-preserving means: extract value from the session and keep it lossless; dis
 | Timeline / 时间线 | Formation of understanding (concept evolution), not discussion order / 认知形成脉络（概念演化），非讨论顺序 | Logical operation chain (correct path), not actual execution order / 操作逻辑链（正确路径），非实际执行顺序 |
 | Order strictness / 顺序严格度 | Medium, reconstructable / 中，可重构 | High, must be reproducible / 高，必须可复现 |
 | Non-removable / 不可剔除 | Concepts, conclusions, causal chain / 概念、结论、演化因果 | Steps, commands, file changes, decision discussions, each one / 步骤、命令、文件改动、决策讨论，一条都不能少 |
-| Removable / 可剔除 | Operational details, command logs / 操作细节、命令日志 | Irrelevant chatter / 与步骤无关的闲聊 |
+| Removable / 可剔除 | Discussion process irrelevant to the extracted value / 与价值无关的讨论过程 | Discussion process irrelevant to the extracted value / 与价值无关的讨论过程 |
 | Errors / 错误处理 | Misconceptions to Pitfalls, not on the evolution chain / 误区入避坑，不占演化主链 | Failed operations to Pitfalls, marked with step position on the correct timeline / 失败操作入避坑，标注正确时间线上的步骤位 |
 
 2.3 A topic may contain both knowledge and record content; its mode is then mixed. Knowledge paragraphs follow Chapter 4, record paragraphs follow Chapter 5, grouped by content type, not interleaved.
@@ -82,8 +82,8 @@ Value-preserving means: extract value from the session and keep it lossless; dis
 3.5 Drop discussion process irrelevant to the extracted value.
 剔除与所提取价值无关的讨论过程。
 
-3.6 Sort content according to the order semantics of the mode.
-按当前模式的顺序语义排序。
+3.6 Sort content according to the timeline semantics of the mode.
+按当前模式的时间线语义排序。
 
 3.7 Write a summary in the frontmatter: a single paragraph, no length limit; it is the basis for distinction and future aggregation.
 在 frontmatter 写摘要：单个段落，不限长度；作为区分与未来聚合的依据。
@@ -106,7 +106,7 @@ Applies to all outputs / 适用于所有产出形态：
 
 ## 4. Knowledge Mode / 知识模式规范
 
-4.1 Target: distill a topic's conceptual evolution and conclusions into one readable asset.
+4.1 Target: organize a topic's conceptual evolution and conclusions into one readable asset.
 目标：把话题的概念演化与结论整理为一份可读资产。
 
 4.2 The timeline follows the formation of understanding: from initial understanding to final conclusions, ordered by concept evolution; even if the discussion jumped around, the result is ordered by the conceptual chain, not by discussion order.
@@ -127,11 +127,11 @@ Applies to all outputs / 适用于所有产出形态：
 
 ## 5. Record Mode / 记录模式规范
 
-5.1 Target: make the operation reproducible; order is strictly sequential.
-目标：保证操作可复现；顺序严格按时间推进。
+5.1 Target: make the operation reproducible; the timeline follows the logical operation chain.
+目标：保证操作可复现；时间线按操作逻辑链组织。
 
-5.2 Steps, commands, and file changes must NOT be removed, and their timeline follows the logical operation chain (the correct order), not the actual execution order. If an error is found mid-task and work is redone from an earlier step (e.g. reached step 5, found an error, went back to step 3 and redid it), the main timeline keeps only the correct final logical order (1→2→3′→4′→5); failed and rework segments do NOT enter the main timeline — they go to the Pitfalls section (5.8, Chapter 6). The same applies to code tasks: order by the correct completion logic.
-步骤、命令、文件改动不可剔除；其时间线按操作逻辑链（正确操作顺序）组织，而非实际执行顺序。若执行中出错回退重做（如做到第 5 步发现错误、退回第 3 步重做），主时间线只记录正确的最终逻辑顺序（1→2→3′→4′→5）；失败与回退段不进入主时间线，移入避坑章节（5.8、第 6 章）。代码任务同理：按正确的任务完成逻辑排序。
+5.2 Steps, commands, and file changes must NOT be removed, and their timeline follows the logical operation chain (the correct order), not the actual execution order. If an error is found mid-task and work is redone from an earlier step (e.g. reached step 5, found an error, went back to step 3 and redid it), the main timeline keeps only the correct final logical order (1→2→3′→4′→5); failed segments → see 5.8. The same applies to code tasks: order by the correct completion logic.
+步骤、命令、文件改动不可剔除；其时间线按操作逻辑链（正确操作顺序）组织，而非实际执行顺序。若执行中出错回退重做（如做到第 5 步发现错误、退回第 3 步重做），主时间线只记录正确的最终逻辑顺序（1→2→3′→4′→5）；失败段处理 → 见 5.8。代码任务同理：按正确的任务完成逻辑排序。
 
 5.3 Each step records its result or verification.
 每一步记录其结果或验证方式。
@@ -146,8 +146,8 @@ Applies to all outputs / 适用于所有产出形态：
 5.5 In development scenarios (plan/build/fix switching), the mode remains record; mark the phase in each step.
 开发场景（plan/build/fix 切换）仍归记录模式；每一步标注所处阶段。
 
-5.6 Decision discussions that affect subsequent steps are kept; only chatter irrelevant to the final steps, conclusions, or state is dropped.
-影响后续步骤的决策讨论必须保留；只有与最终步骤、结论、状态无关的闲聊才剔除。
+5.6 Decision discussions that affect subsequent steps are kept; discussion irrelevant to the extracted value is dropped.
+影响后续步骤的决策讨论必须保留；与所提取价值无关的讨论过程剔除。
 
 5.7 Artifact referencing follows rule 3.9.
 产出物引用遵循 3.9。
@@ -172,10 +172,7 @@ Applies to all outputs / 适用于所有产出形态：
 7.1 File name: `{YYMMDD}-{topic}.md`; the timestamp is the first-run date and never changes.
 文件名：`{YYMMDD}-{topic}.md`；时间戳为首次整理日期，永不改变。
 
-7.1.1 A topic in one session always has one authoritative file (the latest version). Old versions are kept, not deleted, for manual cleanup.
-一个会话中的一个话题永远只留一个权威文件（最新版本）；旧版本保留不删除，待人工清理。
-
-7.1.2 Same session organized again (2nd, 3rd time) -> append a sequence number at the end of the file name. Renaming the title is independent of the sequence number; both can happen at once.
+7.1.1 Same session organized again (2nd, 3rd time) -> append a sequence number at the end of the file name. Renaming the title is independent of the sequence number; both can happen at once.
 同一会话再次整理（第 2、3 次）-> 在文件名末尾追加序号；改标题与加序号互不相关，可同时发生。
 ```
 260807-xxx.md        (1st run / 第一次)
