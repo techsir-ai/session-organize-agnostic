@@ -29,11 +29,9 @@ Value-preserving means: extract value from the session and keep it lossless.
 
 ## 2. Two Modes / 两种模式
 
-2.1 Knowledge Mode: for learning and discussing a topic; tracks the evolution of concepts and conclusions.
-知识模式：用于学习、讨论某个问题；记录概念与结论的逐渐演化。
+2.1 Knowledge Mode: tracks evolution of concepts and conclusions. / 知识模式：跟踪概念与结论的演化。
 
-2.2 Record Mode: for attempts, configurations, questions, and discussions with operations; tracks strict order of steps, commands, and file changes.
-记录模式：用于有尝试、配置方法、提问与讨论的会话；记录步骤、命令、文件改动的严格顺序。
+2.2 Record Mode: tracks strict sequence of steps, commands, and file changes. / 记录模式：跟踪步骤、命令、文件改动的严格顺序。
 
 | Dimension / 维度 | Knowledge / 知识模式 | Record / 记录模式 |
 |---|---|---|
@@ -41,7 +39,6 @@ Value-preserving means: extract value from the session and keep it lossless.
 | Timeline / 时间线 | Formation of understanding (concept evolution), not discussion order / 认知形成脉络（概念演化），非讨论顺序 | Logical operation chain (correct path), not actual execution order / 操作逻辑链（正确路径），非实际执行顺序 |
 | Order strictness / 顺序严格度 | Medium, reconstructable / 中，可重构 | High, must be reproducible / 高，必须可复现 |
 | Non-removable / 不可剔除 | Concepts, conclusions, causal chain / 概念、结论、演化因果 | Steps, commands, file changes, decision discussions, each one / 步骤、命令、文件改动、决策讨论，一条都不能少 |
-| Removable / 可剔除 | Discussion process irrelevant to the extracted value / 与价值无关的讨论过程 | Discussion process irrelevant to the extracted value / 与价值无关的讨论过程 |
 | Errors / 错误处理 | Misconceptions to Pitfalls, not on the evolution chain / 误区入避坑，不占演化主链 | Failed operations to Pitfalls, marked with step position on the correct timeline / 失败操作入避坑，标注正确时间线上的步骤位 |
 
 2.3 A topic may contain both knowledge and record content; its mode is then mixed. Knowledge paragraphs follow Chapter 5, record paragraphs follow Chapter 6, grouped by content type, not interleaved.
@@ -105,25 +102,25 @@ Value-preserving means: extract value from the session and keep it lossless.
 frontmatter 字段：
 ```
 ---
-agent: <agent name>          # Which agent / 哪个 agent
-model: <model name>          # Which model / 哪个模型
-session_id: <session id>     # Corresponding session / 对应会话 id
-mode: knowledge | record | mixed   # Mode: knowledge/record/mixed / 模式：知识/记录/混合
-host_os: macOS | linux | windows   # Current machine OS / 当前机器系统
-hostname: <hostname>         # Current machine hostname / 当前机器主机名
-ip: <LAN IP>                 # LAN IP to distinguish machines; not localhost, not VPN tunnel IP / 局域网 IP，用于区分机器；非 local、非 VPN 隧道 IP
-source: <path or URL>        # Source file of this session, physical path or cloud URL; agent-specific / 源文件路径或云端 URL，因 agent 而异
-summary: <one paragraph>     # Summary, basis for aggregation / 摘要，聚合依据
-prev: <previous version file name>   # Previous version of this file; empty for the first run / 上一版本文件名；首次整理为空
-created: YYMMDD              # Created date / 创建日期
+agent: <agent name>          # 哪个 agent
+model: <model name>          # 哪个模型
+session_id: <session id>     # 对应会话 id
+mode: knowledge | record | mixed   # 知识/记录/混合
+host_os: macOS | linux | windows   # 当前机器系统
+hostname: <hostname>         # 当前机器主机名
+ip: <LAN IP>                 # 局域网 IP，区分机器；非 local、非 VPN 隧道 IP
+source: <path or URL>        # 源文件路径或云端 URL，因 agent 而异
+summary: <one paragraph>     # 摘要，聚合依据
+prev: <previous version file name>   # 上一版本文件名；首次整理为空
+created: YYMMDD              # 创建日期
 ---
 ```
 
 4.3 The agent, model, session id, and host info are recorded only in the frontmatter, not in the file name.
 agent、模型、会话 id 与机器信息只写入 frontmatter，不进文件名。
 
-4.4 The version chain is expressed via `prev` in the frontmatter; `summary` carries the semantic evolution.
-版本链通过 frontmatter 的 `prev` 表达；摘要承担语义演变。
+4.4 The version chain is expressed via `prev` in the frontmatter.
+版本链通过 frontmatter 的 `prev` 表达。
 
 ---
 
@@ -132,8 +129,8 @@ agent、模型、会话 id 与机器信息只写入 frontmatter，不进文件�
 5.1 Target: organize a topic's conceptual evolution and conclusions into one readable asset.
 目标：把话题的概念演化与结论整理为一份可读资产。
 
-5.2 The timeline follows the formation of understanding: from initial understanding to final conclusions, ordered by concept evolution; even if the discussion jumped around, the result is ordered by the conceptual chain, not by discussion order.
-时间线按认知形成脉络组织：从初始认知到最终结论，按概念演化排序；即使讨论跳序进行，整理结果仍按脉络排序，而非讨论顺序。
+5.2 Timeline follows concept evolution, not discussion order.
+时间线按概念演化排序，非讨论顺序。
 
 5.3 Template fields:
 模板字段：
@@ -153,8 +150,8 @@ agent、模型、会话 id 与机器信息只写入 frontmatter，不进文件�
 6.1 Target: make the operation reproducible; the timeline follows the logical operation chain.
 目标：保证操作可复现；时间线按操作逻辑链组织。
 
-6.2 Steps, commands, and file changes must NOT be removed, and their timeline follows the logical operation chain (the correct order), not the actual execution order. If an error is found mid-task and work is redone from an earlier step (e.g. reached step 5, found an error, went back to step 3 and redid it), the main timeline keeps only the correct final logical order (1→2→3′→4′→5); failed segments → see Pitfalls (Chapter 7). The same applies to code tasks: order by the correct completion logic.
-步骤、命令、文件改动不可剔除；其时间线按操作逻辑链（正确操作顺序）组织，而非实际执行顺序。若执行中出错回退重做（如做到第 5 步发现错误、退回第 3 步重做），主时间线只记录正确的最终逻辑顺序（1→2→3′→4′→5）；失败段处理 → 见避坑（第 7 章）。代码任务同理：按正确的任务完成逻辑排序。
+6.2 Steps must NOT be removed. Timeline follows the correct logical order, not actual execution order. On error→retrace→redo, keep only the correct chain (e.g. 1→2→3′→4′→5). Same for code. Failed segments → see Pitfalls (Chapter 7).
+步骤不可剔除。时间线按正确逻辑顺序，非实际执行。出错回退重做只记正确链（如1→2→3′→4′→5）。代码同理。失败段→见避坑（第7章）。
 
 6.3 Each step records its result or verification.
 每一步记录其结果或验证方式。
