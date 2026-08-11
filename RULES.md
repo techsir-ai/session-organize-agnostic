@@ -1,15 +1,17 @@
 # Session Organize Rules / 会话整理规则
 
-> Version: 260807001 / 版本: 260807001
-> Updated: 2026-08-07 / 更新: 2026-08-07
-> Changelog: Initial version / 变更: 初始版本
+> Version: 260811001 / 版本: 260811001
+> Updated: 2026-08-11 / 更新: 2026-08-11
+> Changelog: Initial version; 260811001 value-preserving + timeline definition + mixed mode / 变更: 初始版本；260811001 价值无损 + 时间线定义 + mixed 模式
 
 ---
 
 ## 1. Goals and Principles / 目标与原则
 
-1.1 Lossless organizing, not summarization, condensation, or distillation.
-无损整理，不是摘要、浓缩或蒸馏。
+1.1 Value-preserving organizing, not summarization, condensation, or distillation.
+价值无损整理，不是摘要、浓缩或蒸馏。
+Value-preserving means: extract value from the session and keep it lossless; discussion process irrelevant to that value is dropped.
+价值无损指：从会话中提取价值，围绕价值做无损整理；与价值无关的讨论过程剔除。
 
 1.2 The goal is archiving and cross-agent reuse, not saving context or compressing conversations.
 目标是存档与跨 agent 复用，不是节省上下文或压缩会话。
@@ -20,8 +22,8 @@
 1.4 Repeated information is merged; non-reproducible trivial errors are dropped; reproducible errors are moved to the Pitfalls section.
 重复信息合并；不易复现的简单错误剔除；易复现错误移入避坑章节。
 
-1.5 Content irrelevant to the final steps, conclusions, or state is dropped.
-与最终步骤、结论、状态无关的闲聊内容剔除。
+1.5 Content irrelevant to the extracted value is dropped.
+与所提取价值无关的讨论过程剔除。
 
 ---
 
@@ -36,18 +38,21 @@
 | Dimension / 维度 | Knowledge / 知识模式 | Record / 记录模式 |
 |---|---|---|
 | Scenario / 适用场景 | Learning, discussion / 学习、讨论 | Attempts, setup, dev, Q&A with ops / 尝试、配置、开发、操作 |
-| Order essence / 顺序本质 | Evolution of concepts & conclusions / 概念与结论的演化 | Strict sequence of steps, commands, file changes / 步骤、命令、文件改动的严格时序 |
+| Timeline / 时间线 | Formation of understanding (concept evolution), not discussion order / 认知形成脉络（概念演化），非讨论顺序 | Logical operation chain (correct path), not actual execution order / 操作逻辑链（正确路径），非实际执行顺序 |
 | Order strictness / 顺序严格度 | Medium, reconstructable / 中，可重构 | High, must be reproducible / 高，必须可复现 |
 | Non-removable / 不可剔除 | Concepts, conclusions, causal chain / 概念、结论、演化因果 | Steps, commands, file changes, decision discussions, each one / 步骤、命令、文件改动、决策讨论，一条都不能少 |
 | Removable / 可剔除 | Operational details, command logs / 操作细节、命令日志 | Irrelevant chatter / 与步骤无关的闲聊 |
-| Errors / 错误处理 | Misconceptions to Pitfalls / 误区入避坑 | Failed operations to Pitfalls, marked with step position / 失败操作入避坑，标注步骤位 |
+| Errors / 错误处理 | Misconceptions to Pitfalls, not on the evolution chain / 误区入避坑，不占演化主链 | Failed operations to Pitfalls, marked with step position on the correct timeline / 失败操作入避坑，标注正确时间线上的步骤位 |
+
+2.3 A topic may contain both knowledge and record content; its mode is then mixed. Knowledge paragraphs follow Chapter 4, record paragraphs follow Chapter 5, grouped by content type, not interleaved.
+一个话题可同时包含知识内容与记录内容，此时其模式为 mixed；知识段落遵循第 4 章规范，记录段落遵循第 5 章规范，按内容性质分组，不交错。
 
 ---
 
 ## 3. General Pipeline / 通用处理流水线
 
-3.1 Split topics: if a session contains multiple topics, knowledge points, or operations, split them into separate files, one topic per file.
-分话题：一个会话若有多个知识点、话题或操作，拆分为多个独立文件，一话题一文件。
+3.1 Split topics: divide content by topic, one file per topic; the topic boundary (including whether knowledge and record content belong to the same topic) is judged by the organizing agent.
+分话题：按内容划分话题，一话题一文件；话题边界（含知识内容与记录内容是否同属一个话题）由整理 agent 自行判断。
 
 3.2 Check first: before creating, query existing files.
 先查：创建前先查询已有文件。
@@ -74,8 +79,8 @@
 - Move tried-but-ineffective, reproducible failures to the Pitfalls section.
   尝试过但无效、对最终结果无效、且容易复现的错误移入避坑章节。
 
-3.5 Drop chatter irrelevant to the final steps, conclusions, or state.
-剔除与最终步骤、结论、状态无关的闲聊。
+3.5 Drop discussion process irrelevant to the extracted value.
+剔除与所提取价值无关的讨论过程。
 
 3.6 Sort content according to the order semantics of the mode.
 按当前模式的顺序语义排序。
@@ -104,8 +109,8 @@ Applies to all outputs / 适用于所有产出形态：
 4.1 Target: distill a topic's conceptual evolution and conclusions into one readable asset.
 目标：把话题的概念演化与结论整理为一份可读资产。
 
-4.2 Order follows the gradual evolution of concepts and conclusions, from initial understanding to final conclusions.
-顺序遵循概念与结论的逐渐演化，从初始认知到最终结论。
+4.2 The timeline follows the formation of understanding: from initial understanding to final conclusions, ordered by concept evolution; even if the discussion jumped around, the result is ordered by the conceptual chain, not by discussion order.
+时间线按认知形成脉络组织：从初始认知到最终结论，按概念演化排序；即使讨论跳序进行，整理结果仍按脉络排序，而非讨论顺序。
 
 4.3 Template fields:
 模板字段：
@@ -125,8 +130,8 @@ Applies to all outputs / 适用于所有产出形态：
 5.1 Target: make the operation reproducible; order is strictly sequential.
 目标：保证操作可复现；顺序严格按时间推进。
 
-5.2 Steps, commands, and file changes must NOT be removed, and their order must be stricter than in Knowledge Mode.
-步骤、命令、文件改动不可剔除，顺序要求比知识模式更严格。
+5.2 Steps, commands, and file changes must NOT be removed, and their timeline follows the logical operation chain (the correct order), not the actual execution order. If an error is found mid-task and work is redone from an earlier step (e.g. reached step 5, found an error, went back to step 3 and redid it), the main timeline keeps only the correct final logical order (1→2→3′→4′→5); failed and rework segments do NOT enter the main timeline — they go to the Pitfalls section (5.8, Chapter 6). The same applies to code tasks: order by the correct completion logic.
+步骤、命令、文件改动不可剔除；其时间线按操作逻辑链（正确操作顺序）组织，而非实际执行顺序。若执行中出错回退重做（如做到第 5 步发现错误、退回第 3 步重做），主时间线只记录正确的最终逻辑顺序（1→2→3′→4′→5）；失败与回退段不进入主时间线，移入避坑章节（5.8、第 6 章）。代码任务同理：按正确的任务完成逻辑排序。
 
 5.3 Each step records its result or verification.
 每一步记录其结果或验证方式。
@@ -157,8 +162,8 @@ Applies to all outputs / 适用于所有产出形态：
 6.1 Shared by both modes; collects reproducible errors that are invalid to the final result.
 两种模式共用；收集对最终结果无效但容易复现的错误。
 
-6.2 Each entry records: the error, its cause, the fix, and (in Record Mode) the step position.
-每条记录：错误、原因、解决办法，以及（记录模式下）发生的步骤位。
+6.2 Each entry records: the error, its cause, the fix, and (in Record Mode) the step position on the correct timeline.
+每条记录：错误、原因、解决办法，以及（记录模式下）其在正确时间线上的步骤位。
 
 ---
 
@@ -185,7 +190,7 @@ frontmatter 字段：
 agent: <agent name>          # Which agent / 哪个 agent
 model: <model name>          # Which model / 哪个模型
 session_id: <session id>     # Corresponding session / 对应会话 id
-mode: knowledge | record     # Mode / 模式
+mode: knowledge | record | mixed   # Mode: knowledge/record/mixed / 模式：知识/记录/混合
 host_os: macOS | linux | windows   # Current machine OS / 当前机器系统
 hostname: <hostname>         # Current machine hostname / 当前机器主机名
 ip: <LAN IP>                 # LAN IP to distinguish machines; not localhost, not VPN tunnel IP / 局域网 IP，用于区分机器；非 local、非 VPN 隧道 IP
