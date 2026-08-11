@@ -44,8 +44,8 @@ Value-preserving means: extract value from the session and keep it lossless.
 | Removable / 可剔除 | Discussion process irrelevant to the extracted value / 与价值无关的讨论过程 | Discussion process irrelevant to the extracted value / 与价值无关的讨论过程 |
 | Errors / 错误处理 | Misconceptions to Pitfalls, not on the evolution chain / 误区入避坑，不占演化主链 | Failed operations to Pitfalls, marked with step position on the correct timeline / 失败操作入避坑，标注正确时间线上的步骤位 |
 
-2.3 A topic may contain both knowledge and record content; its mode is then mixed. Knowledge paragraphs follow Chapter 4, record paragraphs follow Chapter 5, grouped by content type, not interleaved.
-一个话题可同时包含知识内容与记录内容，此时其模式为 mixed；知识段落遵循第 4 章规范，记录段落遵循第 5 章规范，按内容性质分组，不交错。
+2.3 A topic may contain both knowledge and record content; its mode is then mixed. Knowledge paragraphs follow Chapter 5, record paragraphs follow Chapter 6, grouped by content type, not interleaved.
+一个话题可同时包含知识内容与记录内容，此时其模式为 mixed；知识段落遵循第 5 章规范，记录段落遵循第 6 章规范，按内容性质分组，不交错。
 
 ---
 
@@ -88,75 +88,12 @@ Value-preserving means: extract value from the session and keep it lossless.
 
 ---
 
-## 4. Knowledge Mode / 知识模式规范
+## 4. Naming and Frontmatter / 命名与元数据
 
-4.1 Target: organize a topic's conceptual evolution and conclusions into one readable asset.
-目标：把话题的概念演化与结论整理为一份可读资产。
-
-4.2 The timeline follows the formation of understanding: from initial understanding to final conclusions, ordered by concept evolution; even if the discussion jumped around, the result is ordered by the conceptual chain, not by discussion order.
-时间线按认知形成脉络组织：从初始认知到最终结论，按概念演化排序；即使讨论跳序进行，整理结果仍按脉络排序，而非讨论顺序。
-
-4.3 Template fields:
-模板字段：
-- Topic and conclusion / 主题与结论
-- Evolution chain of understanding / 认知演化链
-- Key conclusions / 关键结论
-- Pitfalls and misconceptions / 避坑与误区
-- Related entries / 相关条目
-
-4.4 Misconceptions and reproducible errors go to the Pitfalls section, not the main chain.
-误区与易复现错误放入避坑章节，不占演化主链。
-
----
-
-## 5. Record Mode / 记录模式规范
-
-5.1 Target: make the operation reproducible; the timeline follows the logical operation chain.
-目标：保证操作可复现；时间线按操作逻辑链组织。
-
-5.2 Steps, commands, and file changes must NOT be removed, and their timeline follows the logical operation chain (the correct order), not the actual execution order. If an error is found mid-task and work is redone from an earlier step (e.g. reached step 5, found an error, went back to step 3 and redid it), the main timeline keeps only the correct final logical order (1→2→3′→4′→5); failed segments → see 5.8. The same applies to code tasks: order by the correct completion logic.
-步骤、命令、文件改动不可剔除；其时间线按操作逻辑链（正确操作顺序）组织，而非实际执行顺序。若执行中出错回退重做（如做到第 5 步发现错误、退回第 3 步重做），主时间线只记录正确的最终逻辑顺序（1→2→3′→4′→5）；失败段处理 → 见 5.8。代码任务同理：按正确的任务完成逻辑排序。
-
-5.3 Each step records its result or verification.
-每一步记录其结果或验证方式。
-
-5.4 Template fields:
-模板字段：
-- Environment and prerequisites / 环境与前提
-- Step sequence, in strict order: commands, configs, file changes, each with result / 步骤序列，严格时序：命令、配置、文件改动，每步含结果
-- Reproduction check / 复现检查
-- Pitfalls and error-prone points, marked with the step position / 避坑与易错点，标注步骤位
-
-5.5 In development scenarios (plan/build/fix switching), the mode remains record; mark the phase in each step.
-开发场景（plan/build/fix 切换）仍归记录模式；每一步标注所处阶段。
-
-5.6 Decision discussions that affect subsequent steps are kept; discussion irrelevant to the extracted value is dropped.
-影响后续步骤的决策讨论必须保留；与所提取价值无关的讨论过程剔除。
-
-5.7 Artifact referencing follows rule 3.9.
-产出物引用遵循 3.9。
-
-5.8 Failed operations move to Pitfalls with the step position where they occurred; the main sequence keeps only the working path.
-失败操作移入避坑并标注发生步骤；主序列只保留有效路径。
-
----
-
-## 6. Pitfalls and Error-Prone Points / 避坑与易错章节
-
-6.1 Shared by both modes; collects reproducible errors that are invalid to the final result.
-两种模式共用；收集对最终结果无效但容易复现的错误。
-
-6.2 Each entry records: the error, its cause, the fix, and (in Record Mode) the step position on the correct timeline.
-每条记录：错误、原因、解决办法，以及（记录模式下）其在正确时间线上的步骤位。
-
----
-
-## 7. Naming and Frontmatter / 命名与元数据
-
-7.1 File name: `{YYMMDD}-{topic}.md`; the timestamp is the first-run date and never changes.
+4.1 File name: `{YYMMDD}-{topic}.md`; the timestamp is the first-run date and never changes.
 文件名：`{YYMMDD}-{topic}.md`；时间戳为首次整理日期，永不改变。
 
-7.1.1 Same session organized again (2nd, 3rd time) -> append a sequence number at the end of the file name. Renaming the title is independent of the sequence number; both can happen at once.
+4.1.1 Same session organized again (2nd, 3rd time) -> append a sequence number at the end of the file name. Renaming the title is independent of the sequence number; both can happen at once.
 同一会话再次整理（第 2、3 次）-> 在文件名末尾追加序号；改标题与加序号互不相关，可同时发生。
 ```
 260807-xxx.md        (1st run / 第一次)
@@ -164,7 +101,7 @@ Value-preserving means: extract value from the session and keep it lossless.
 260807-xxx.3.md      (3rd run / 第三次)
 ```
 
-7.2 Frontmatter:
+4.2 Frontmatter:
 frontmatter 字段：
 ```
 ---
@@ -182,8 +119,71 @@ created: YYMMDD              # Created date / 创建日期
 ---
 ```
 
-7.3 The agent, model, session id, and host info are recorded only in the frontmatter, not in the file name.
+4.3 The agent, model, session id, and host info are recorded only in the frontmatter, not in the file name.
 agent、模型、会话 id 与机器信息只写入 frontmatter，不进文件名。
 
-7.4 The version chain is expressed via `prev` in the frontmatter; `summary` carries the semantic evolution.
+4.4 The version chain is expressed via `prev` in the frontmatter; `summary` carries the semantic evolution.
 版本链通过 frontmatter 的 `prev` 表达；摘要承担语义演变。
+
+---
+
+## 5. Knowledge Mode Template / 知识模式模板
+
+5.1 Target: organize a topic's conceptual evolution and conclusions into one readable asset.
+目标：把话题的概念演化与结论整理为一份可读资产。
+
+5.2 The timeline follows the formation of understanding: from initial understanding to final conclusions, ordered by concept evolution; even if the discussion jumped around, the result is ordered by the conceptual chain, not by discussion order.
+时间线按认知形成脉络组织：从初始认知到最终结论，按概念演化排序；即使讨论跳序进行，整理结果仍按脉络排序，而非讨论顺序。
+
+5.3 Template fields:
+模板字段：
+- Topic and conclusion / 主题与结论
+- Evolution chain of understanding / 认知演化链
+- Key conclusions / 关键结论
+- Pitfalls and misconceptions / 避坑与误区
+- Related entries / 相关条目
+
+5.4 Misconceptions and reproducible errors go to the Pitfalls section, not the main chain.
+误区与易复现错误放入避坑章节，不占演化主链。
+
+---
+
+## 6. Record Mode Template / 记录模式模板
+
+6.1 Target: make the operation reproducible; the timeline follows the logical operation chain.
+目标：保证操作可复现；时间线按操作逻辑链组织。
+
+6.2 Steps, commands, and file changes must NOT be removed, and their timeline follows the logical operation chain (the correct order), not the actual execution order. If an error is found mid-task and work is redone from an earlier step (e.g. reached step 5, found an error, went back to step 3 and redid it), the main timeline keeps only the correct final logical order (1→2→3′→4′→5); failed segments → see Pitfalls (Chapter 7). The same applies to code tasks: order by the correct completion logic.
+步骤、命令、文件改动不可剔除；其时间线按操作逻辑链（正确操作顺序）组织，而非实际执行顺序。若执行中出错回退重做（如做到第 5 步发现错误、退回第 3 步重做），主时间线只记录正确的最终逻辑顺序（1→2→3′→4′→5）；失败段处理 → 见避坑（第 7 章）。代码任务同理：按正确的任务完成逻辑排序。
+
+6.3 Each step records its result or verification.
+每一步记录其结果或验证方式。
+
+6.4 Template fields:
+模板字段：
+- Environment and prerequisites / 环境与前提
+- Step sequence, in strict order: commands, configs, file changes, each with result / 步骤序列，严格时序：命令、配置、文件改动，每步含结果
+- Reproduction check / 复现检查
+- Pitfalls and error-prone points, marked with the step position / 避坑与易错点，标注步骤位
+
+6.5 Failed operations move to Pitfalls with the step position where they occurred; the main sequence keeps only the working path.
+失败操作移入避坑并标注发生步骤；主序列只保留有效路径。
+
+6.6 In development scenarios (plan/build/fix switching), the mode remains record; mark the phase in each step.
+开发场景（plan/build/fix 切换）仍归记录模式；每一步标注所处阶段。
+
+6.7 Decision discussions that affect subsequent steps are kept; discussion irrelevant to the extracted value is dropped.
+影响后续步骤的决策讨论必须保留；与所提取价值无关的讨论过程剔除。
+
+6.8 Artifact referencing follows rule 3.9.
+产出物引用遵循 3.9。
+
+---
+
+## 7. Pitfalls and Error-Prone Points / 避坑与易错章节
+
+7.1 Shared by both modes; collects reproducible errors that are invalid to the final result.
+两种模式共用；收集对最终结果无效但容易复现的错误。
+
+7.2 Each entry records: the error, its cause, the fix, and (in Record Mode) the step position on the correct timeline.
+每条记录：错误、原因、解决办法，以及（记录模式下）其在正确时间线上的步骤位。
