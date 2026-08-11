@@ -60,24 +60,16 @@ Value-preserving means: extract value from the session and keep it lossless.
 3.2.1 List files in the target directory, read their frontmatter (agent, session_id, topic, summary).
 列出目标目录文件，读取 frontmatter（agent、session_id、话题、摘要）。
 
-3.2.2 Same agent + same session_id + same topic -> produce a new version file (with optional new title + sequence number); the old file is kept for manual cleanup. The latest version is the authoritative one.
-相同 agent + 相同 session_id + 相同话题 -> 生成新版本文件（可改标题+序号）；旧文件保留待人工清理；最新版本为权威。
+3.2.2 Same agent + same session_id + same topic → new version (optional new title + sequence number), old file kept; otherwise → new file. / 相同 agent + 相同 session_id + 相同话题 → 新版本（可改标题+序号），旧文件保留；否则 → 新建。
 
-3.2.3 No match -> create a new file.
-无匹配 -> 新建文件。
-
-3.2.4 Cross-session / cross-agent merging belongs to the aggregation layer, not this pipeline.
+3.2.3 Cross-session / cross-agent merging belongs to the aggregation layer, not this pipeline.
 跨会话、跨 agent 的归并属于聚合层，不在此流程内。
 
 3.3 Deduplicate: merge repeated content whose information value is already one.
 去重：合并信息量本就为 1 的重复内容。
 
-3.4 Remove invalid content, two levels:
-去无效，两层含义：
-- Drop simple, non-reproducible errors such as typos.
-  剔除简单、不易重复出现的错误，如拼写错误。
-- Move tried-but-ineffective, reproducible failures to the Pitfalls section.
-  尝试过但无效、对最终结果无效、且容易复现的错误移入避坑章节。
+3.4 Remove invalid content: drop simple non-reproducible errors (e.g. typos), move reproducible failures to Pitfalls.
+去无效：剔除简单不易复现的错误（如拼写），易复现错误移入避坑。
 
 3.5 Drop discussion process irrelevant to the extracted value.
 剔除与所提取价值无关的讨论过程。
@@ -91,16 +83,8 @@ Value-preserving means: extract value from the session and keep it lossless.
 3.8 Write the file with naming `{YYMMDD}-{topic}.md` and full frontmatter.
 按命名 `{YYMMDD}-{topic}.md` 及完整 frontmatter 落盘。
 
-3.9 If the session already produced artifacts, reference them instead of copying the full content.
-如果会话中已有产出物，以引用代替全文抄写。
-
-Applies to all outputs / 适用于所有产出形态：
-- Knowledge documents: reference existing docs or conclusions instead of re-writing.
-  知识文档：已有文档/结论 -> 引用，不重写。
-- Record documents: plan, spec, design docs, config files -> reference.
-  记录文档：plan、spec、设计文档、配置文件 -> 引用。
-- Code: session-produced code files -> reference by path, do not paste full source.
-  代码：会话中产生的代码文件 -> 引用文件路径，不粘贴完整源码。
+3.9 If the session already produced artifacts, reference them instead of copying the full content (applies to knowledge docs, record docs, and code alike).
+如果会话中已有产出物，以引用代替全文抄写（知识文档/记录文档/代码均适用）。
 
 ---
 
