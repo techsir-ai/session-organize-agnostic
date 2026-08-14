@@ -22,6 +22,18 @@ Lossless organizing: no distillation, no extraction, no compression.
 - Inherited and reused across different agents / 可在不同 agent 中继承使用
 - One rule source (RULES.md), dual carriers: subagent + skill / 单一规则源，子 agent 与 skill 双承载
 
+## Supported Platforms / 已适配平台
+
+> 单一规则源（RULES.md），各平台按自身机制承载。skill 与 MCP 属跨 agent 工业标准，各平台原生支持；子 agent（subagent / agent-preset）各平台机制不同，视其是否有静态定义能力而定。
+
+| Platform / 平台 | skill | 子 agent（subagent） | 子 agent 情况 / Reason |
+|-----------------|:-----:|:---------------------:|------------------------|
+| opencode | ✅ | ✅ | 静态 `agents/*.md` 定义（`subagent/opencode/organize.md`） |
+| workbuddy | ✅ | ✅ | 静态 `agents/*.md` 定义（`subagent/workbuddy/organize.md`），skill 为可选承载 |
+| hermes | ✅ | ❌ | 无静态子 agent 机制（运行时动态创建、无法独立配置权限），仅 skill |
+| openclaw | ✅ | ❌ | 无静态子 agent 机制（运行时动态创建、无法独立配置权限），仅 skill |
+| dsh | ✅ | ❌ | 用 agent-preset（`agent.cordis.yml`，插件行清单、不承载行为正文），行为靠 skill，故仅 skill（见 INSTALL 6.1） |
+
 ## Cross-Agent Continuation / 跨 agent 无痕续做
 
 A project started in one agent can be seamlessly continued in another.
