@@ -62,6 +62,14 @@ output_dir:
 - 若文件不存在、无法读取或无法解析出有效的 role/content 成对内容：
   立即终止并报告，不产出任何文件，不臆测会话内容。
 
+### dsh（已适配 / adapted）
+- 会话源：`~/.dsh/sessions/<projectKey>/session-<sessionID>/session.jsonl`，用 Glob 在 `~/.dsh/sessions/**/session-<sessionID>/session.jsonl*` 定位。
+- projectKey 转义规则：`--` 包裹；路径内 `/`、`\`、`:` 统一替换为单个 `-`（连续分隔符合并）；字母数字与 `._-` 保留；其余码位 → `~XXXX`（大写十六进制 4 位）。例：`/Users/changwei/Notes/AIWIKI` → `--Users-changwei-Notes-AIWIKI--`。
+- 压缩说明：dsh 默认以 zstd 压缩落盘为 `session.jsonl.zstd`（Node `node:zlib` 原生，内存解压，不产生临时文件）。读取时在内存/管道中解压（如 `zstd -d` 或代码 zstd 解码），单条会话为多帧拼接容器，按帧依次解码。若部署时已将 dsh 持久化设为 `compression=none`，则直接逐行读 `.jsonl`。
+- 保底目录：~/.dsh/sessionexport/（dsh 部署时请将本文件 frontmatter 的 output_dir.fallback 改为此值；注意 dsh 的默认会话目录 ~/.dsh/sessions/ 是 dsh 自身会话存储，勿作输出目录）。
+- 若 Glob 无匹配（找不到该 sessionID 的文件）、文件无法读取、解压失败或无有效 role/content 成对内容：
+  立即终止并报告，不产出任何文件，不臆测会话内容。
+
 ---
 
 ## 注意

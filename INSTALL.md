@@ -103,3 +103,21 @@
 - Session source / 会话源：`~/.openclaw/agents/<agentId>/sessions/<sessionId>.jsonl`，其中 `<agentId>` 为当前运行的 agent 名称（如主会话通常是 main）——详见 SKILL.md 正文 openclaw 适配段
 - Fallback dir / 保底目录：`~/.openclaw/agents/<agentId>/sessions/`（OpenClaw 部署时请将本文件 frontmatter 的 output_dir.fallback 改为此值）
 - Note / 说明：OpenClaw 会话为物理 JSONL 文件，压缩只改上下文不删物理存储，被压缩轮次在 JSONL 中仅追加摘要条目或插入一行，原始行完整保留；整理时全量读取。
+
+---
+
+## 6. 框架：dsh / Framework: dsh
+
+### 6.1 subagent 安装 / subagent Install
+
+- 不提供 / Not provided
+- 原因 / Reason：dsh 用 agent-preset（`~/.agent-presets/<id>/agent.cordis.yml`，每会话从 preset 组合 agent）作为声明式 agent 定义，其组合文件是**插件行清单**（装配哪些工具/服务），不承载 `organize.md` 这类行为正文；organize 的行为规则由通用 skill（`SKILL.md`，运行时拉取云端 `RULES.md`）承载。单独为 dsh 造一个 agent-preset 只会得到依赖 skill 的空壳子 agent，故 dsh 仅支持 skill 承载（见 6.2），不提供子 agent 模板。
+
+### 6.2 skill 安装 / skill Install
+
+- Template / 模板：`skills/organize/SKILL.md`（通用 skill，dsh 适配段已补全）
+- Deploy to / 部署到：`~/.dsh/skills/organize/SKILL.md`（dsh 用户级 skill 根；dsh 的 skill-filesystem 默认扫描 `~/.dsh/skills` 与 `~/.agents/skills`，放置后新会话即可识别。Skill 为跨 agent 工业标准，dsh 亦原生支持，故复用同一份 skill）
+- Session source / 会话源：`~/.dsh/sessions/<projectKey>/session-<sessionID>/session.jsonl`（projectKey 转义规则与 zstd 内存解压见 SKILL.md 正文 dsh 适配段）
+- Fallback dir / 保底目录：~/.dsh/sessionexport/
+- Permission note / 权限说明：dsh 以进程级 sandbox/permission 模式控权（默认 `workspace-write`）。安装即向 `~/.dsh/skills/` 写文件，由具有写权限的主 agent 完成；运行 skill 需能读 `~/.dsh/sessions` 并写 `~/.dsh/sessionexport`，如受 sandbox 限制则需按需放行。
+- Note / 说明：dsh 会话 zstd 压缩（node:zlib 原生，内存解压），读取无临时文件；压缩/软归档物理存储完整保留，整理时全量读取。
